@@ -1,14 +1,14 @@
-<?php 
-	
-	// Create a new user
-    $app->get('/user/create/:name', function ($name) {
+<?php
+
+	// Create a user connection
+    $app->get('/connect/user/:user_id/friend/:friend_id', function ($user_id, $friend_id) {
 		
 		$db = getConn();
 		
 		// Insert statement
-		$sql_stmt = "INSERT INTO `user`
-					(`name`)
-					VALUES ('".$name."')";
+		$sql_stmt = "INSERT INTO `user_conn`
+					(`user_id`, `friend_id`)
+					VALUES ('".$user_id."','".$friend_id."')";
 		
 		// Submit to database
 		$action = $db->prepare($sql_stmt);
@@ -21,15 +21,15 @@
 		
 	});
 	
-	// Edit a user
-    $app->get('/user/update/:id/:zip', function ($id, $zip) {
+	// Create a user connection
+    $app->get('/connect/user/:user_id/friend/:friend_id', function ($user_id, $friend_id) {
 		
 		$db = getConn();
 		
-		// Update statement
-		$sql_stmt = "UPDATE `user`
-					SET `zip` = '".$zip."'
-					WHERE `id` = ".$id;
+		// Insert statement
+		$sql_stmt = "INSERT INTO `user_conn`
+					(`user_id`, `friend_id`)
+					VALUES ('".$user_id."','".$friend_id."')";
 		
 		// Submit to database
 		$action = $db->prepare($sql_stmt);
@@ -42,14 +42,14 @@
 		
 	});
 	
-	// Delete a user
-    $app->get('/user/delete/:id', function ($id) {
+	// Delete a user connection
+    $app->get('/delete/user/:user_id/friend/:friend_id', function ($user_id, $friend_id) {
 		
 		$db = getConn();
 		
-		// Update statement
-		$sql_stmt = "DELETE FROM `user`
-					WHERE `id` = ".$id;
+		// Insert statement
+		$sql_stmt = "DELETE FROM `user_conn`
+					WHERE `user_id` = '".$user_id."' AND `friend_id` = '".$friend_id."'";
 		
 		// Submit to database
 		$action = $db->prepare($sql_stmt);
@@ -62,22 +62,23 @@
 		
 	});
 	
-	// Retrieve user details
-    $app->get('/user/details/:id', function ($id) {
+	// Get user connections
+    $app->get('/get/friends/:user_id', function ($user_id) {
 		
 		$db = getConn();
 		
-		// Update statement
-		$sql_stmt = "SELECT * FROM `user`
-					WHERE `id` = ".$id;
+		// Insert statement
+		$sql_stmt = "SELECT `user`.* FROM `user_conn`
+					JOIN `user` ON `user`.`id` = `user_conn`.`friend_id`
+					WHERE `user_conn`.`user_id` = '".$user_id."'";
 		
 		// Submit to database
 		$action = $db->prepare($sql_stmt);
 		$action->execute();
 		
-		// Verify user exists
+		// Check if user has connections
 		if ($action->rowCount() == 0) {
-			$success['result'] = "This user does not exist.";
+			$success['result'] = "This user does not have any connections.";
 		} else {
 			// Return results
 			$success['result'] = $action->fetchAll(PDO::FETCH_ASSOC);
@@ -87,5 +88,5 @@
 		echo json_encode($success);
 		
 	});
-	
+
 ?>
