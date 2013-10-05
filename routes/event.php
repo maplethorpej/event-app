@@ -1,14 +1,14 @@
 <?php 
 
 	// Create a new event
-    $app->get('/event/create/:name/:datetime/:location/:description/:min_req/:max_req', function ($name, $datetime, $location, $description, $min_req, $max_req) {
+    $app->get('/event/create/:creator/:name/:datetime/:location/:description/:min_req/:max_req/', function ($creator, $name, $datetime, $location, $description, $min_req, $max_req) {
 
 		$db = getConn();
 
 		// Insert statement
 		$sql_stmt = "INSERT INTO `event`
-					(`name`, `datetime`, `location`, `description`, `min_req`, `max_req`)
-					VALUES (:name,'".$datetime."',:location, :description,'".$min_req."','".$max_req."')";
+					(`creator``name`, `datetime`, `location`, `description`, `min_req`, `max_req`)
+					VALUES ('".$creator."',:name,'".$datetime."',:location, :description,'".$min_req."','".$max_req."')";
 
 		// Submit to database
 		$action = $db->prepare($sql_stmt);

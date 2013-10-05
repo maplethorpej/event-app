@@ -21,27 +21,6 @@
 		
 	});
 	
-	// Create a user connection
-    $app->get('/connect/user/:user_id/friend/:friend_id', function ($user_id, $friend_id) {
-		
-		$db = getConn();
-		
-		// Insert statement
-		$sql_stmt = "INSERT INTO `user_conn`
-					(`user_id`, `friend_id`)
-					VALUES ('".$user_id."','".$friend_id."')";
-		
-		// Submit to database
-		$action = $db->prepare($sql_stmt);
-		$action->execute();
-		
-		// Return results
-		$success['result'] = $action->rowCount();
-		header("Content-Type: application/json");
-		echo json_encode($success);
-		
-	});
-	
 	// Delete a user connection
     $app->get('/delete/user/:user_id/friend/:friend_id', function ($user_id, $friend_id) {
 		

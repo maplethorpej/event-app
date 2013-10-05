@@ -22,7 +22,7 @@
 	});
 	
 	// Edit a user
-    $app->get('/user/update/:id/:zip', function ($id, $zip) {
+    $app->get('/user/edit/:id/:zip', function ($id, $zip) {
 		
 		$db = getConn();
 		
