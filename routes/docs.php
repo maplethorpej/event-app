@@ -1,6 +1,7 @@
 <?php
 
-$app->get('/', function () {
+$app->get('/docs', function () {
+	
 ?>
 	<h1>Documentation</h1>
     
