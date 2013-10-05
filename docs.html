@@ -7,103 +7,172 @@
 
 <body>
 
+<style type="text/css">
+
+body {
+	max-width:800px;
+	margin:40px auto;
+	padding:0 20px;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#666;
+	line-height:140%;
+}
+
+h1 {
+	color:#000;
+}
+
+h2 {
+	color:#222;
+}
+
+h3 {
+	margin-bottom:4px;
+	color:#444;
+}
+
+.blue {
+	color:#0099FF;
+}
+
+</style>
+
 	<h1>Documentation</h1>
     
-    This documentation will outline the event-app API's routes and explain each other their uses. The routes were intended to be as straightforward as possible, but several deviate from the standard convention. Error messages will also be explained if they exist.
+    <strong>This documentation will outline the event-app API's routes and explain each other their uses. The routes were intended to be as straightforward as possible, but several deviate from the standard convention. Error messages will also be explained if they exist.</strong>
 
-Variables are denoted in blue. All inputs should be URL Encoded.
+<h2>Notes</h2>
+<ul>
+    <li>Variables are denoted in blue.</li>
+    <li>Tokens will be added for user authentication.</li>
+    <li>Data needs to be URL encoded when sending through API.</li>
+    <li>Updated: 10/5/2013</li>
+</ul>
 
-Note: Tokens will eventually be required.
+<h3>Create user</h3>
+/user/create/<span class="blue">:name</span>
 
-Create user
-/user/create/:name
+<ul>
+	<li>Adds a user to the database with an auto_inc ID (will be replaced w/ Facebook connection)</li>
+	<li>Facebook profile picture URL will also be included eventually</li>
+</ul>
 
-- Adds a user to the database with an auto_inc ID (will be replaced w/ Facebook connection)
-- Facebook profile picture URL will also be included eventually
+<h3>Edit user</h3>
+/user/edit/<span class="blue">:id</span>/<span class="blue">:zip</span>
 
-Edit user
-/user/edit/:id/:zip
+<ul>
+	<li>Updates the user zip code (5 digits)</li>
+</ul>
 
-- Updates the user zip code (5 digits)
+<h3>Delete user</h3>
+/user/delete/<span class="blue">:id</span>
 
-Delete user
-/user/delete/:id
+<ul>
+	<li>Deletes a user</li>
+</ul>
 
-- Deletes a user
+<h3>Retrieve user details</h3>
+/user/details/<span class="blue">:id</span>
 
-Retrieve user details
-/user/details/:id
-
-- Returns all information about a particular user
-
-Create event
-/event/create/:creator_id/:name/:datetime/:location/:description/:min_req/:max_req
-
-- Creates an event
-- If min_req or max_req are not specified, set to zero
-
-Edit event
-/event/edit/:id/:name/:datetime/:location/:description/:min_req/:max_req 
-
-
-- Submit all fields when editing an event
-- Will require a check to verify user's ownership of the event
-
-Delete event
-/event/delete/:id
-
-- Deletes an event from the database
-- Will require a check to verify user's ownership of the event
-
-Retrieve event details
-/event/details/:id
-
-- Returns all information about a particular event, including users attending and comments
-
-Create comment
-
-/comment/create/:user_id/:event_id/:comment
-
-- Creates a comment for an event
-
-Delete comment
-/comment/delete/:id
-
-Connect a user with an event
-/connect/event/:event_id/user/:user_id
-
-- Invites a user to an event
-
-Set user to 'attend' event
-/attend/event/:event_id/user/:user_id
-
-- Sets 'attending' to one
+<ul>
+	<li>Returns all information about a particular user</li>
+</ul>
 
 
-Set user to 'decline' event
-/decline/event/:event_id/user/:user_id 
+<h3>Create event</h3>
+/event/create/<span class="blue">:creator_id</span>/<span class="blue">:name</span>/<span class="blue">:datetime</span>/<span class="blue">:location</span>/<span class="blue">:description</span>/<span class="blue">:min_req</span>/<span class="blue">:max_req</span>
 
-- Sets 'attending' to zero
+<ul>
+	<li>Creates an event</li>
+	<li>If min_req or max_req are not specified, set to zero</li>
+</ul>
 
-Deletes an event invite
-/delete/event/:event_id/user/:user_id
+<h3>Edit event</h3>
+/event/edit/<span class="blue">:id</span>/<span class="blue">:name</span>/<span class="blue">:datetime</span>/<span class="blue">:location</span>/<span class="blue">:description</span>/<span class="blue">:min_req</span>/<span class="blue">:max_req</span>
 
-- Removes invite from database
+<ul>
+	<li>Submit all fields when editing an event</li>
+	<li>Will require a check to verify user's ownership of the event</li>
+</ul>
 
-Connect a user with another user
-/connect/user/:user_id/friend/:friend_id
+<h3>Delete event</h3>
+/event/delete/<span class="blue">:id</span>
 
-- Makes a one-way connection to another user
+<ul>
+	<li>Deletes an event from the database</li>
+	<li>Will require a check to verify user's ownership of the event</li>
+</ul>
 
-Removes a user connection
-/delete/user/:user_id/friend/:friend_id
+<h3>Retrieve event details</h3>
+/event/details/<span class="blue">:id</span>
 
-- Removes one-way user connection
+<ul>
+	<li>Returns all information about a particular event, including users attending and comments</li>
+</ul>
 
-Retrieve a user's connections
-/get/friends/:user_id
+<h3>Create comment</h3>
 
-- Returns details of user's connections
+/comment/create/<span class="blue">:user_id</span>/<span class="blue">:event_id</span>/<span class="blue">:comment</span>
+
+<ul>
+	<li>Creates a comment for an event</li>
+</ul>
+
+<h3>Delete comment</h3>
+/comment/delete/<span class="blue">:id</span>
+
+<ul>
+	<li>Deletes a comment</li>
+</ul>
+
+<h3>Connect a user with an event</h3>
+/connect/event/<span class="blue">:event_id</span>/user/<span class="blue">:user_id</span>
+
+<ul>
+	<li>Invites a user to an event</li>
+</ul>
+
+<h3>Set user to 'attend' event</h3>
+/attend/event/<span class="blue">:event_id</span>/user/<span class="blue">:user_id</span>
+
+<ul>
+	<li>Sets 'attending' to one</li>
+</ul>
+
+<h3>Set user to 'decline' event</h3>
+/decline/event/<span class="blue">:event_id</span>/user/<span class="blue">:user_id </span>
+
+<ul>
+	<li>Sets 'attending' to zero</li>
+</ul>
+
+<h3>Deletes an event invite</h3>
+/delete/event/<span class="blue">:event_id</span>/user/<span class="blue">:user_id</span>
+
+<ul>
+	<li>Removes invite from database</li>
+</ul>
+
+<h3>Connect a user with another user</h3>
+/connect/user/<span class="blue">:user_id</span>/friend/<span class="blue">:friend_id</span>
+
+<ul>
+	<li>Makes a one-way connection to another user</li>
+</ul>
+
+<h3>Removes a user connection</h3>
+/delete/user/<span class="blue">:user_id</span>/friend/<span class="blue">:friend_id</span>
+
+<ul>
+	<li>Removes one-way user connection</li>
+</ul>
+
+<h3>Retrieve a user's connections</h3>
+/get/friends/<span class="blue">:user_id</span>
+
+<ul>
+	<li>Returns details of user's connections</li>
+</ul>
 
 </body>
 </html>
