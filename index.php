@@ -5,6 +5,9 @@
 	// Initiate app and set debug to 'true'
 	$app = new \Slim\Slim();
 	$app->config('debug', true);
+	
+	// Documentation
+	include('routes/docs.php');
 
 	// User controller
 	include('routes/user.php');
